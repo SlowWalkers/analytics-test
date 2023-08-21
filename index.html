@@ -9,6 +9,31 @@
         gtag('js', new Date());
 
         gtag('config', 'G-RCL24EZTHG');
+
+        function sendEvent() {
+            console.log("sendEvent!!");
+            gtag("event", "screen_view", {
+                items: [
+                    "media_name", "朝刊"
+                ]
+            });
+        }
+
+        document.addEventListener("visibilitychange", function() {
+            // Opera 12.10 や Firefox 18 以前の対策をする場合
+            // 考慮しないのであればdocument.hiddenのみで良い
+            if (document.hidden || document.mozHidden || document.webkitHidden || document.msHidden) {
+                //非表示状態なら停止
+                console.log("非表示");
+            } else {
+                //表示状態なら再生
+                console.log("表示");
+            }
+        });
+
+        window.addEventListener('beforeunload', function(event){
+            console.log("離脱");
+        });
     </script>
     <meta charset="UTF-8">
     <title>analytics-test</title>
@@ -16,6 +41,6 @@
 <body>
     <h1>analytics test</h1>
 
-    <button type="button" id="send">sendScreenView</button>
+    <button type="button" id="send" onclick="sendEvent()">sendScreenView</button>
 </body>
 </html>
